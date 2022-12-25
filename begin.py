@@ -33,9 +33,9 @@ sc.blit(background_surf, (0,0))
 dog_surf = pg.image.load(r"C:\Users\patri\study\Informatik\my game\char.png").convert_alpha()
 dogg_surf = pg.image.load(r"C:\Users\patri\study\Informatik\my game\left_right.png")
 dog_up = dog_surf
-dog_down = pg.transform.flip(dog_surf, 1, 0)
+dog_down = pg.transform.flip(dog_surf, 1, 1)
 dog_left = dogg_surf
-dog_right = pg.transform.rotate(dogg_surf, 90)
+dog_right = pg.transform.flip(dogg_surf, 1, 0)
 dog_rect = dog_surf.get_rect(center=(W//2, H//2))
 
 dog=dog_up
@@ -56,14 +56,14 @@ while True:
     if keys[pg.K_RIGHT]:
         dog = dog_right
         dog_rect.x += SPEED
-        if (dog_rect.x < 0) :
-            dog_rect.x = 0
+        if  (dog_rect.x > W - dog_rect.height):
+            dog_rect.x = W - dog_rect.height
 
     if keys[pg.K_LEFT]:
         dog = dog_left
         dog_rect.x -= SPEED
-        if (dog_rect.x > W - dog_rect.height):
-            dog_rect.x = W - dog_rect.height
+        if (dog_rect.x < 0):
+            dog_rect.x = 0
 
     if keys[pg.K_UP]:
         dog = dog_up
