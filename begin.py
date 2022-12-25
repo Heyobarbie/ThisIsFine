@@ -31,12 +31,15 @@ sc.blit(background_surf, (0,0))
 #redo the left and right
 
 dog_surf = pg.image.load(r"C:\Users\patri\study\Informatik\my game\char.png").convert_alpha()
+
 dogg_surf = pg.image.load(r"C:\Users\patri\study\Informatik\my game\left_right.png")
-dog_up = dog_surf
-dog_down = pg.transform.flip(dog_surf, 1, 1)
-dog_left = dogg_surf
-dog_right = pg.transform.flip(dogg_surf, 1, 0)
-dog_rect = dog_surf.get_rect(center=(W//2, H//2))
+
+dog_up = pg.transform.scale(dog_surf, (60,80))
+dog_down = pg.transform.flip(dog_up, True, True)
+
+dog_left = pg.transform.scale(dogg_surf, (60,80))
+dog_right = pg.transform.flip(dog_left, True, False)
+dog_rect = dog_up.get_rect(center=(W//2, H//2))
 
 dog=dog_up
 
