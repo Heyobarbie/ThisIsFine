@@ -2,6 +2,7 @@ import pygame as pg
 from random import randint
 import sys
 from settings import *
+import fireballclass 
 # import all the expansions for our module
 pg.init()
 
@@ -39,7 +40,7 @@ pg.display.update()
 # MAKING FIREBALLS
 
 pg.time.set_timer(pg.USEREVENT, 3000) #timer 
-b1 = fireball(randint(0,W), SPEEDBALL, r"C:\Users\patri\study\Informatik\my game\fireball.png")
+b1 = fireball(randint(0,W), speedball, r"C:\Users\patri\study\Informatik\my game\fireball.png")
 
 while True:
 
@@ -93,6 +94,8 @@ while True:
     
     sc.blit(background_surf, (0, 0))
     sc.blit(dog, (dog_rect))   
+    sc.blit(b1.image, b1.rect)
     pg.display.update()
 
     clock.tick(60)  # 60 frames per seconds
+    b1.update(H)
