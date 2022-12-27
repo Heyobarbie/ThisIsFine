@@ -49,7 +49,7 @@ balls =pg.sprite.Group()
 def makeFireball (group):
     pic = randint (0, len(balls_surf)-1)
     speedball = randint (2, 6)
-    x = randint (5, W-5)
+    x = randint (20, W-20)
     return fireball(x, speedball, balls_surf[pic], group)
 
 pg.time.set_timer(pg.USEREVENT, 6000) #timer 

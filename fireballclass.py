@@ -6,7 +6,7 @@ class fireball(pg.sprite.Sprite):
         pg.sprite.Sprite.__init__(self)
         
         self.image = surface
-        self.image = pg.transform.scale(self.image, (20, 40))
+        self.image = pg.transform.scale(self.image, (100, 140))
        
         self.rect = self.image.get_rect(center=(x, 0))
         self.speed = speedball
