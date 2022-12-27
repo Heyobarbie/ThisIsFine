@@ -1,23 +1,18 @@
 import pygame as pg
 from random import randint
-import sys
 from settings import *
-import fireballclass 
-# import all the expansions for our module
+from fireballclass import fireball
+
 pg.init()
-
-
 sc = pg.display.set_mode((W, H))
 pg.display.set_caption("THIS IS FINE")
 
 clock = pg.time.Clock()  # delays the operations
 
-x = W/2
-y = H/2
 
 # make a background
-background_surf = pg.image.load(r"C:\Users\patri\study\Informatik\my game\back.jpg").convert()
-sc.blit(background_surf, (0, 0))
+background = pg.image.load(r"C:\Users\patri\study\Informatik\my game\back.jpg").convert()
+#sc.blit(background, (0, 0))
 
 # load a pic (if i want to make one colour transparent => .set_colorkey((*the color*)))
 # making sprites for the hero
@@ -39,8 +34,26 @@ pg.display.update()
 
 # MAKING FIREBALLS
 
-pg.time.set_timer(pg.USEREVENT, 3000) #timer 
-b1 = fireball(randint(0,W), speedball, r"C:\Users\patri\study\Informatik\my game\fireball.png")
+balls_images =['fireball.png', 'fireball2.png']# , 'fireball3.png']
+balls_surf=[pg.image.load("images/"+path).convert_alpha() for path in balls_images]
+
+# balls_surf = []
+# for image in balls_images:
+#     path = "images/" + image
+#     tmp_ball_surf = pg.image.load(path).convert_alpha
+
+#     balls_surf.append(tmp_ball_surf)
+
+balls =pg.sprite.Group()
+
+def makeFireball (group):
+    pic = randint (0, len(balls_surf)-1)
+    speedball = randint (2, 6)
+    x = randint (5, W-5)
+    return fireball(x, speedball, balls_surf[pic], group)
+
+pg.time.set_timer(pg.USEREVENT, 6000) #timer 
+makeFireball(balls)
 
 while True:
 
@@ -48,10 +61,8 @@ while True:
         
         if event.type == pg.QUIT:
             exit()
-        if event.type == pg.USEREVENT:
-           sc.blit(b1.image, b1.rect)
-           b1.update(H)
-           pg.display.update()
+        elif event.type == pg.USEREVENT:
+           makeFireball(balls)
 
     # loosing lifes
 
@@ -92,10 +103,10 @@ while True:
             dog_rect.y = H - dog_rect.height
 
     
-    sc.blit(background_surf, (0, 0))
+    sc.blit(background, (0, 0))
     sc.blit(dog, (dog_rect))   
-    sc.blit(b1.image, b1.rect)
+    balls.draw(sc)
     pg.display.update()
 
     clock.tick(60)  # 60 frames per seconds
-    b1.update(H)
+    balls.update(H)
