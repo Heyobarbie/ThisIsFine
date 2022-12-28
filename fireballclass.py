@@ -2,12 +2,12 @@ import pygame as pg
 
 class fireball(pg.sprite.Sprite):
 
-    def __init__(self, x, speedball, surface, group):
+    def __init__(self, x, speedball, surface, damage, group):
         pg.sprite.Sprite.__init__(self)
         
         self.image = surface
         self.image = pg.transform.scale(self.image, (100, 140))
-       
+        self.damage= damage
         self.rect = self.image.get_rect(center=(x, 0))
         self.speed = speedball
         self.add(group)
