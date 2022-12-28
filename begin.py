@@ -2,15 +2,17 @@ import pygame as pg
 from random import randint
 from settings import *
 from fireballclass import fireball
+from map import *
 
 pg.init()
 sc = pg.display.set_mode((W, H))
 pg.display.set_caption("THIS IS FINE")
 
 lifecount = pg.image.load(r"C:\Users\patri\study\Informatik\my game\images\textbox.png").convert_alpha()
+lifecount = pg.transform.scale(lifecount, (200,100))
 pixelFont =pg.font.Font(r'C:\Users\patri\study\Informatik\my game\font\grand9k_pixel\Grand9K Pixel.ttf', 30)
 
-
+spritesheet = Spritesheet('image/psps.jpg')
 
 clock = pg.time.Clock()  # delays the operations
 
@@ -65,7 +67,7 @@ def caughtFireball():
             LIVES -= ball.damage
             ball.kill()
 
-pg.time.set_timer(pg.USEREVENT, 6000) #timer 
+pg.time.set_timer(pg.USEREVENT, 2000) #timer 
 makeFireball(balls)
 
 while True:
@@ -119,7 +121,7 @@ while True:
     sc.blit(background, (0, 0))
     sc.blit(lifecount, (0,0))
     counter = pixelFont.render( str(LIVES), 2, BLACK)
-    sc.blit(counter, (200,100))
+    sc.blit(counter, (25,10))
     
     sc.blit(dog, (dog_rect))   
     balls.draw(sc)

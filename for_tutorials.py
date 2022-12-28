@@ -1,5 +1,5 @@
 import pygame as pg
-import sys
+from spritesheet import SpriteSheet
 from settings import *
 #import all the expansions for our module
 pg.init()
@@ -13,16 +13,16 @@ clock = pg.time.Clock() # delays the operations
 x = W/2
 y = H/2
 
+my_spritesheet = SpriteSheet("spritebaby.png")
+trainer1 = my_spritesheet.get_sprite(0,0,210, 300)
 
 
+surf = pg.Surface((20, 20))
 
-surf = pg.Surface((W, 200))
-bita = pg.Surface((50,10))
 
 surf.fill(AQUA)
-bita.fill(BLACK)
 
-bx, by = 0, 150
+
 x, y = 0, 0
 
 
@@ -43,19 +43,9 @@ while True:
     if keys[pg.K_DOWN]:
      y += SPEED
 
-    surf.fill(AQUA)
-    surf.blit(bita, (bx,by))
-    if bx < W:
-        bx += 5
-    else:
-        bx = 0
 
-    if y < H :
-        y += 1
-    else:
-        y = 0
-
-    sc.fill(WHITE)
+    sc.fill(BLACK)
+    sc.blit(trainer1,(0,H-210))
     sc.blit(surf, (x,y))
     pg.display.update()
 
