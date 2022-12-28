@@ -5,7 +5,7 @@ H = 720
 FPS = 60
 
 SPEED = 5
-LIFES = 3
+LIVES = 5
 
 TILESIZE = 64
 
