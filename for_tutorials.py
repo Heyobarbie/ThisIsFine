@@ -16,6 +16,7 @@ level = Level(level_0, sc)
 
 x, y = W//2, H//2
 surf = pg.Surface((20,20))
+
 surf.fill(PINK)
 sc.blit(surf,(50,50))
 pg.display.update()
@@ -37,7 +38,7 @@ while True:
     if keys[pg.K_DOWN]:
      y += SPEED
 
-
+    sc.fill(BLACK)
     level.run()
     sc.blit(surf, (x,y))
     pg.display.update()

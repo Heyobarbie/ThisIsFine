@@ -1,11 +1,12 @@
 import pygame as pg
 from support import import_csv_layout
 from settings_for_tutorials import *
-from class_Tile import Tile
+from class_Tile import *
 
 class Level:
     def __init__(self, level_data, surface):
         self.display_surface= surface
+        self.world_shift=0
 
         terrain_layout = import_csv_layout(level_data['terrain'])
         self.terrain_sprites = self.create_tile_group(terrain_layout, 'terrain')
@@ -28,3 +29,4 @@ class Level:
 
     def run(self):
         self.terrain_sprites.draw(self.display_surface)
+        self.terrain_sprites.update(-4)
