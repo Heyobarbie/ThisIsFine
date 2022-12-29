@@ -1,7 +1,7 @@
 import pygame as pg
 from settings import *
 from settings_for_tutorials import *
-from map import Level
+from class_level import Level
 from game_data import level_0
 #import all the expansions for our module
 pg.init()
@@ -24,7 +24,7 @@ while True:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             exit()
-    level.run()
+    
 
     keys = pg.key.get_pressed()
 
@@ -38,7 +38,7 @@ while True:
      y += SPEED
 
 
-    sc.fill(BLACK)
+    level.run()
     sc.blit(surf, (x,y))
     pg.display.update()
 
