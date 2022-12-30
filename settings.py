@@ -7,7 +7,12 @@ FPS = 60
 SPEED = 5
 LIVES = 5
 
-TILESIZE = 64
+vertical_tile_number = 60
+horizonal_tile_number = 11
+tile_size = 64
+
+screen_height= vertical_tile_number * tile_size
+screen_width = horizonal_tile_number * tile_size
 
 # define colours
 WHITE = (255, 255, 255)

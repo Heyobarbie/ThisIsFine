@@ -1,7 +1,7 @@
 import pygame as pg
 from settings import *
 from settings_for_tutorials import *
-from class_level import Level
+from class_level import *
 from game_data import level_0
 #import all the expansions for our module
 pg.init()
@@ -41,6 +41,7 @@ while True:
     sc.fill(BLACK)
     level.run()
     sc.blit(surf, (x,y))
+   
     pg.display.update()
 
     clock.tick(FPS) # 60 frames per seconds

@@ -2,12 +2,13 @@ import pygame as pg
 from random import randint
 from settings import *
 from fireballclass import fireball
+#from main_character import *
 
 pg.init()
 sc = pg.display.set_mode((W, H))
 pg.display.set_caption("THIS IS FINE")
 
-lifecount = pg.image.load(r"C:\Users\patri\study\Informatik\my game\images\textbox.png").convert_alpha()
+lifecount = pg.image.load(r"C:\Users\patri\study\Informatik\my game\sprites\textbox.png").convert_alpha()
 lifecount = pg.transform.scale(lifecount, (200,100))
 pixelFont =pg.font.Font(r'C:\Users\patri\study\Informatik\my game\font\grand9k_pixel\Grand9K Pixel.ttf', 30)
 
@@ -24,17 +25,18 @@ background = pg.image.load(r"C:\Users\patri\study\Informatik\my game\back.jpg").
 # making sprites for the hero
 dog_surf = pg.image.load(r"C:\Users\patri\study\Informatik\my game\char.png").convert_alpha()
 
-dogg_surf = pg.image.load(r"C:\Users\patri\study\Informatik\my game\my drawings\run_left.png")
+dogg_surf = pg.image.load(r"C:\Users\patri\study\Informatik\my game\my drawings\dog_right.png").convert_alpha()
 
 dog_up = pg.transform.scale(dog_surf, (80, 100))
 dog_down = pg.transform.flip(dog_up, True, True)
 
-dog_left = pg.transform.scale(dogg_surf, (80, 100))
-dog_right = pg.transform.flip(dog_left, True, False)
+dog_right = pg.transform.scale(dogg_surf, (80, 100))
+dog_left = pg.transform.flip(dog_right, True, False)
 dog_rect = dog_up.get_rect(center=(W//2, H//2))
 
-dog = dog_up
-
+dog_sit = pg.image.load(r"C:\Users\patri\study\Informatik\my game\my drawings\dog_sit.png").convert_alpha()
+dog_sit = pg.transform.scale(dog_sit, (80, 120)) 
+dog = dog_sit
 sc.blit(dog_surf, dog_rect)
 pg.display.update()
 
@@ -42,7 +44,7 @@ pg.display.update()
 
 balls_info =({'path': 'fireball.png', 'damage': 1},
             {'path': 'fireball2.png', 'damage': 2})
-balls_surf=[pg.image.load("images/"+info['path']).convert_alpha() for info in balls_info]
+balls_surf=[pg.image.load("sprites/"+info['path']).convert_alpha() for info in balls_info]
 
 # balls_surf = []
 # for image in balls_images:
@@ -95,8 +97,10 @@ while True:
     if keys[pg.K_RIGHT]:
         dog = dog_right
         dog_rect.x += SPEED
+        
         if (dog_rect.x > W - dog_rect.height):
             dog_rect.x = W - dog_rect.height
+        
 
     if keys[pg.K_LEFT]:
         dog = dog_left
@@ -115,6 +119,7 @@ while True:
         dog_rect.y += SPEED
         if (dog_rect.y > H - dog_rect.height):
             dog_rect.y = H - dog_rect.height
+    
 
     caughtFireball()
     sc.blit(background, (0, 0))
@@ -125,6 +130,7 @@ while True:
     sc.blit(dog, (dog_rect))   
     balls.draw(sc)
     pg.display.update()
+    dog = dog_sit
 
     clock.tick(60)  # 60 frames per seconds
     balls.update(H)
