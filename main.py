@@ -8,9 +8,9 @@ pg.init()
 sc = pg.display.set_mode((W, H))
 pg.display.set_caption("THIS IS FINE")
 
-lifecount = pg.image.load(r"C:\Users\patri\study\Informatik\my game\sprites\textbox.png").convert_alpha()
+lifecount = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\sprites\textbox.png").convert_alpha()
 lifecount = pg.transform.scale(lifecount, (200,100))
-pixelFont =pg.font.Font(r'C:\Users\patri\study\Informatik\my game\font\grand9k_pixel\Grand9K Pixel.ttf', 30)
+pixelFont =pg.font.Font(r'C:\Users\patri\study\Informatik\MyGame\GameRepo\font\grand9k_pixel\Grand9K Pixel.ttf', 30)
 
 
 
@@ -18,14 +18,14 @@ clock = pg.time.Clock()  # delays the operations
 
 
 # make a background
-background = pg.image.load(r"C:\Users\patri\study\Informatik\my game\back.jpg").convert()
+background = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\back.jpg").convert()
 
 
 # load a pic (if i want to make one colour transparent => .set_colorkey((*the color*)))
 # making sprites for the hero
-dog_surf = pg.image.load(r"C:\Users\patri\study\Informatik\my game\char.png").convert_alpha()
+dog_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\char.png").convert_alpha()
 
-dogg_surf = pg.image.load(r"C:\Users\patri\study\Informatik\my game\my drawings\dog_right.png").convert_alpha()
+dogg_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\my drawings\dog_right.png").convert_alpha()
 
 dog_up = pg.transform.scale(dog_surf, (80, 100))
 dog_down = pg.transform.flip(dog_up, True, True)
@@ -34,7 +34,7 @@ dog_right = pg.transform.scale(dogg_surf, (80, 100))
 dog_left = pg.transform.flip(dog_right, True, False)
 dog_rect = dog_up.get_rect(center=(W//2, H//2))
 
-dog_sit = pg.image.load(r"C:\Users\patri\study\Informatik\my game\my drawings\dog_sit.png").convert_alpha()
+dog_sit = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\my drawings\dog_sit.png").convert_alpha()
 dog_sit = pg.transform.scale(dog_sit, (80, 120)) 
 dog = dog_sit
 sc.blit(dog_surf, dog_rect)
