@@ -7,26 +7,28 @@ from Dog import *
 class Level:
     def __init__(self, level_data, surface):
         self.display_surface = surface
-        self.world_shift = 3
-        # repeat for different layers
+        self.world_shift = 0
 
         terrain_layout = import_csv_layout(level_data['terrain'])
         self.terrain_sprites = self.create_tile_group(terrain_layout, 'terrain')
 
-        dog_layout = import_csv_layout(level_data['dog'])
+
+        self.goal = pg.sprite.GroupSingle()
         self.player = pg.sprite.GroupSingle()
+        dog_layout = import_csv_layout(level_data['dog'])
         self.dog_setup(dog_layout)
 
-        self.goal = pg.sprite.GroupSingle 
+        
 
     def dog_setup(self, layout):
-          for row_index, row in enumerate(layout):
+
+        for row_index, row in enumerate(layout):
             for colunm_index, value in enumerate(row):
                     x = colunm_index * tile_size
                     y = row_index * tile_size
 
                     if value == '0':
-                        dog = Dog((x,y), self.display_surface)
+                        dog = Dog((640,320))
                         self.player.add(dog)
 
     def create_tile_group(self, layout, type):
@@ -44,7 +46,6 @@ class Level:
                         terrain_tile_list = import_cut_graphic(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\sprites\64sprite_terrain.png")
                         tile_surface = terrain_tile_list[int(value)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
-                    
 
                     self.sprite_group.add(sprite)
 
