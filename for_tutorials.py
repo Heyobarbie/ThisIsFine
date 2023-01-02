@@ -1,7 +1,7 @@
 import pygame as pg
 from settings import *
 #from settings_for_tutorials import *
-from class_level import *
+from Level import *
 from game_data import level_0
 from Dog import *
 #import all the expansions for our module

@@ -1,13 +1,13 @@
 import pygame as pg
 from support import *
 from settings_for_tutorials import *
-from class_Tile import *
+from Tile import *
 from Dog import *
 
 class Level:
     def __init__(self, level_data, surface):
         self.display_surface = surface
-        self.world_shift = 0
+        self.world_shift = -2
 
         terrain_layout = import_csv_layout(level_data['terrain'])
         self.terrain_sprites = self.create_tile_group(terrain_layout, 'terrain')
