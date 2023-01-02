@@ -2,30 +2,29 @@ import pygame as pg
 from random import randint
 from settings import *
 from fireballclass import fireball
-#from main_character import *
+from Level import *
+from game_data import level_0
+from Dog import *
 
 pg.init()
 sc = pg.display.set_mode((W, H))
 pg.display.set_caption("THIS IS FINE")
 
-lifecount = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\sprites\textbox.png").convert_alpha()
+lifecount = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\textbox.png").convert_alpha()
 lifecount = pg.transform.scale(lifecount, (200,100))
-pixelFont =pg.font.Font(r'C:\Users\patri\study\Informatik\MyGame\GameRepo\font\grand9k_pixel\Grand9K Pixel.ttf', 30)
-
-
+pixelFont =pg.font.Font(r'C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Fonts\Grand9KPixel.ttf', 30)
 
 clock = pg.time.Clock()  # delays the operations
-
+level = Level(level_0, sc)
 
 # make a background
-background = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\back.jpg").convert()
-
+background = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\background.jpg").convert()
 
 # load a pic (if i want to make one colour transparent => .set_colorkey((*the color*)))
 # making sprites for the hero
-dog_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\char.png").convert_alpha()
+dog_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\dog_top.png").convert_alpha()
 
-dogg_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\my drawings\dog_right.png").convert_alpha()
+dogg_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\dog_right.png").convert_alpha()
 
 dog_up = pg.transform.scale(dog_surf, (80, 100))
 dog_down = pg.transform.flip(dog_up, True, True)
@@ -34,17 +33,16 @@ dog_right = pg.transform.scale(dogg_surf, (80, 100))
 dog_left = pg.transform.flip(dog_right, True, False)
 dog_rect = dog_up.get_rect(center=(W//2, H//2))
 
-dog_sit = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\my drawings\dog_sit.png").convert_alpha()
+dog_sit = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\dog_sit.png").convert_alpha()
 dog_sit = pg.transform.scale(dog_sit, (80, 120)) 
 dog = dog_sit
 sc.blit(dog_surf, dog_rect)
-pg.display.update()
 
 # MAKING FIREBALLS
 
 balls_info =({'path': 'fireball.png', 'damage': 1},
             {'path': 'fireball2.png', 'damage': 2})
-balls_surf=[pg.image.load("sprites/"+info['path']).convert_alpha() for info in balls_info]
+balls_surf=[pg.image.load("Resources/Sprites/"+info['path']).convert_alpha() for info in balls_info]
 
 # balls_surf = []
 # for image in balls_images:
@@ -70,25 +68,14 @@ def caughtFireball():
 
 pg.time.set_timer(pg.USEREVENT, 2000) #timer 
 makeFireball(balls)
+pg.display.update()
 
 while True:
-
     for event in pg.event.get():
-        
         if event.type == pg.QUIT:
             exit()
         elif event.type == pg.USEREVENT:
            makeFireball(balls)
-
-    # loosing lifes by fireballs
-
-    #if (((fireball.rect.y == dog_rect.x) and (fireball.rect.x == dog_rect.x)) or (dog_rect.y == (H - 3))):
-
-       # LIFES = LIFES - 1
-    
-    #if (LIFES == 0):
-      #  print("dead")
-        #you are dead
 
     # moves around
 
@@ -124,9 +111,9 @@ while True:
     caughtFireball()
     sc.blit(background, (0, 0))
     sc.blit(lifecount, (0,0))
-    counter = pixelFont.render( str(LIVES), 2, BLACK)
+    counter = pixelFont.render(str(LIVES), 2, BLACK)
     sc.blit(counter, (25,10))
-    
+    level.run()
     sc.blit(dog, (dog_rect))   
     balls.draw(sc)
     pg.display.update()

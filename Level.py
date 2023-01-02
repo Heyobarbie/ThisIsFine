@@ -43,7 +43,7 @@ class Level:
                     
                     # terrain setup
                     if type == 'terrain':
-                        terrain_tile_list = import_cut_graphic(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\sprites\64sprite_terrain.png")
+                        terrain_tile_list = import_cut_graphic(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\64sprite_terrain.png")
                         tile_surface = terrain_tile_list[int(value)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
 
