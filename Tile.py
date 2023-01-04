@@ -1,4 +1,5 @@
 import pygame as pg
+from settings import *
 
 class Tile(pg.sprite.Sprite):
     def __init__(self, size, x, y):
@@ -11,7 +12,8 @@ class Tile(pg.sprite.Sprite):
         self.rect.y += -2
 
 class StaticTile(Tile):
-    def __init__(self, size, x, y, surface):
+    def __init__(self, size, x, y, surface, z = LAYERS['room']):
         super().__init__(size,x,y)
         self.image = surface
+        self.z = z
         

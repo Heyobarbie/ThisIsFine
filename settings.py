@@ -23,3 +23,12 @@ BLACK = (0, 0, 0)
 PINK = (255, 102, 255)
 AQUA = (0, 204, 204)
 GOLD = (255, 215, 0)
+
+LAYERS ={
+    'background': 0,
+    'room': 1,
+    'dog': 2,
+    'countdown' : 3,
+    'fireballs' : 4
+    
+}

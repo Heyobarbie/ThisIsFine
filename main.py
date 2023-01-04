@@ -18,7 +18,7 @@ clock = pg.time.Clock()  # delays the operations
 level = Level(level_0, sc)
 
 # make a background
-background = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\background.jpg").convert()
+
 
 # load a pic (if i want to make one colour transparent => .set_colorkey((*the color*)))
 # making sprites for the hero
@@ -109,7 +109,6 @@ while True:
     
 
     caughtFireball()
-    sc.blit(background, (0, 0))
     level.run()
     sc.blit(lifecount, (0,0))
     counter = pixelFont.render(str(LIVES), 2, BLACK)

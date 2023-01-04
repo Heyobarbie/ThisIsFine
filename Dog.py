@@ -23,7 +23,7 @@ class Dog(pg.sprite.Sprite):
         self.rect = self.image.get_rect(center = position)
         self.direction = pg.math.Vector2(0,0)
         self.pos = pg.math.Vector2(self.rect.center)
-        self.speed = SPEED
+        self.z = LAYERS ['dog']
        
     
     
