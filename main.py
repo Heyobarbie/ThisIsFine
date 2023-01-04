@@ -63,15 +63,13 @@ sc.blit(dog_surf, dog_rect)
 # # #         if dog_rect.collidepoint(ball.rect.center):
 # # #             LIVES -= ball.damage
 # # #             ball.kill()
-balls = pg.sprite.Group()
-
-def makeFireball():
-    return Fireball(balls)
+ballsGroup = pg.sprite.Group()
+   
     
 
 def caughtFireball(dog_rect):
     global LIVES
-    for ball in balls:
+    for ball in ballsGroup:
         if dog_rect.collidepoint(ball.rect.center):
             LIVES -= ball.damage
             ball.kill()
@@ -81,7 +79,7 @@ def caughtFireball(dog_rect):
        
 
 pg.time.set_timer(pg.USEREVENT, 2000) #timer 
-makeFireball(sc)
+Fireball(ballsGroup,sc)
 pg.display.update()
 
 while True:
@@ -89,7 +87,7 @@ while True:
         if event.type == pg.QUIT:
             exit()
         elif event.type == pg.USEREVENT:
-           makeFireball(sc)
+           Fireball(ballsGroup, sc)
 
     # moves around
 
@@ -122,7 +120,7 @@ while True:
             dog_rect.y = H - dog_rect.height
     
 
-    caughtFireball()
+    caughtFireball(dog_rect)
     
     level.run()
     sc.blit(lifecount, (0,0))
@@ -130,9 +128,9 @@ while True:
     sc.blit(counter, (25,10))
     
     sc.blit(dog, (dog_rect))   
-    balls.draw(sc)
+    ballsGroup.draw(sc)
     pg.display.update()
     dog = dog_sit
 
     clock.tick(60)  # 60 frames per seconds
-    balls.update(H)
+    ballsGroup.update(H)
