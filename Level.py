@@ -21,19 +21,19 @@ class Level:
         
 
     def dog_setup(self, layout):
-
+        
         for row_index, row in enumerate(layout):
             for colunm_index, value in enumerate(row):
                     x = colunm_index * tile_size
                     y = row_index * tile_size
 
                     if value == '0':
-                        dog = Dog((640,320))
-                        self.player.add(dog)
+                        dog = Dog((640,320), self.display_surface, self.sprite_group)
+                        
 
     def create_tile_group(self, layout, type):
 
-        self.sprite_group =pg.sprite.Group()
+        self.sprite_group = CameraGroup()
 
         for row_index, row in enumerate(layout):
             for colunm_index, value in enumerate(row):
@@ -53,10 +53,18 @@ class Level:
         return self.sprite_group
 
     def run(self):
-        self.sprite_group.draw(self.display_surface)
-        self.sprite_group.update(self.world_shift)
-        
-        self.player.update()
-        self.player.draw(self.display_surface)
+        self.sprite_group.custom_draw()
+        self.sprite_group.update()
         
         
+        
+        
+
+class CameraGroup(pg.sprite.Group):
+    def __init__(self):
+        super().__init__()
+        self.display_surface = pg.display.get_surface()
+    def custom_draw(self):
+        for sprite in self.sprites():
+            self.display_surface.blit(sprite.image, sprite.rect)
+            

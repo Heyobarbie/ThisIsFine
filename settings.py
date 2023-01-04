@@ -4,7 +4,7 @@ H = 720
 
 FPS = 60
 
-SPEED = 5
+SPEED = 4
 LIVES = 5
 
 vertical_tile_number = 60

@@ -22,9 +22,9 @@ background = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Res
 
 # load a pic (if i want to make one colour transparent => .set_colorkey((*the color*)))
 # making sprites for the hero
-dog_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\dog_top.png").convert_alpha()
+dog_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\up\dog_top.png").convert_alpha()
 
-dogg_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\dog_right.png").convert_alpha()
+dogg_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\right\dog_right.png").convert_alpha()
 
 dog_up = pg.transform.scale(dog_surf, (80, 100))
 dog_down = pg.transform.flip(dog_up, True, True)
@@ -33,7 +33,7 @@ dog_right = pg.transform.scale(dogg_surf, (80, 100))
 dog_left = pg.transform.flip(dog_right, True, False)
 dog_rect = dog_up.get_rect(center=(W//2, H//2))
 
-dog_sit = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\dog_sit.png").convert_alpha()
+dog_sit = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\sit\dog_sit.png").convert_alpha()
 dog_sit = pg.transform.scale(dog_sit, (80, 120)) 
 dog = dog_sit
 sc.blit(dog_surf, dog_rect)
@@ -110,10 +110,11 @@ while True:
 
     caughtFireball()
     sc.blit(background, (0, 0))
+    level.run()
     sc.blit(lifecount, (0,0))
     counter = pixelFont.render(str(LIVES), 2, BLACK)
     sc.blit(counter, (25,10))
-    level.run()
+    
     sc.blit(dog, (dog_rect))   
     balls.draw(sc)
     pg.display.update()

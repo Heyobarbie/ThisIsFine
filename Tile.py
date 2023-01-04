@@ -7,8 +7,8 @@ class Tile(pg.sprite.Sprite):
         
         self.rect = self.image.get_rect(topleft =(x,y))
 
-    def update(self, shift):
-        self.rect.y += shift
+    def update(self):
+        self.rect.y += -2
 
 class StaticTile(Tile):
     def __init__(self, size, x, y, surface):

@@ -1,6 +1,7 @@
 import pygame as pg
 from settings_for_tutorials import *
 from csv import reader
+from os import walk
 
 def import_csv_layout(path):
     terrain_map =[]
@@ -24,3 +25,14 @@ def import_cut_graphic(path):
             new_surf.blit(surface,(0,0), pg.Rect(x,y,tile_size, tile_size))
             cut_tiles.append(new_surf)
     return cut_tiles
+
+def import_folder(path):
+    surface_list = []
+
+    for _, __, image_files in walk(path):
+        for image in image_files:
+
+           full_path = path + '/' + image
+           image_surface = pg.image.load(full_path).convert_alpha()
+           surface_list.append(image_surface)
+    return surface_list
