@@ -30,5 +30,4 @@ LAYERS ={
     'dog': 2,
     'countdown' : 3,
     'fireballs' : 4
-    
 }

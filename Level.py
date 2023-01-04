@@ -19,11 +19,9 @@ class Level:
         dog_layout = import_csv_layout(level_data['dog'])
         self.dog_setup(dog_layout)
 
-        
 
     def dog_setup(self, layout):
 
-        
         for row_index, row in enumerate(layout):
             for colunm_index, value in enumerate(row):
                     x = colunm_index * tile_size

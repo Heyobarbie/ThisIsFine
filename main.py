@@ -1,7 +1,7 @@
 import pygame as pg
 from random import randint
 from settings import *
-from fireballclass import fireball
+from fireballclass import Fireball
 from Level import *
 from game_data import level_0
 from Dog import *
@@ -16,8 +16,6 @@ pixelFont =pg.font.Font(r'C:\Users\patri\study\Informatik\MyGame\GameRepo\Resour
 
 clock = pg.time.Clock()  # delays the operations
 level = Level(level_0, sc)
-
-# make a background
 
 
 # load a pic (if i want to make one colour transparent => .set_colorkey((*the color*)))
@@ -40,9 +38,9 @@ sc.blit(dog_surf, dog_rect)
 
 # MAKING FIREBALLS
 
-balls_info =({'path': 'fireball.png', 'damage': 1},
-            {'path': 'fireball2.png', 'damage': 2})
-balls_surf=[pg.image.load("Resources/Sprites/"+info['path']).convert_alpha() for info in balls_info]
+# # # balls_info =({'path': 'fireball.png', 'damage': 1},
+# # #             {'path': 'fireball2.png', 'damage': 2})
+# # # balls_surf=[pg.image.load("Resources/Sprites/"+info['path']).convert_alpha() for info in balls_info]
 
 # balls_surf = []
 # for image in balls_images:
@@ -51,23 +49,39 @@ balls_surf=[pg.image.load("Resources/Sprites/"+info['path']).convert_alpha() for
 
 #     balls_surf.append(tmp_ball_surf)
 
-balls =pg.sprite.Group()
+# # # balls =pg.sprite.Group()
 
-def makeFireball (group):
-    index = randint (0, len(balls_surf)-1)
-    speedball = randint (2, 6)
-    x = randint (20, W-20)
-    return fireball(x, speedball, balls_surf[index], balls_info[index]['damage'], group)
+# # # def makeFireball (group):
+# # #     index = randint (0, len(balls_surf)-1)
+# # #     speedball = randint (2, 6)
+# # #     x = randint (20, W-20)
+# # #     return Fireball(x, speedball, balls_surf[index], balls_info[index]['damage'], group)
 
-def caughtFireball():
+# # # def caughtFireball():
+# # #     global LIVES
+# # #     for ball in balls:
+# # #         if dog_rect.collidepoint(ball.rect.center):
+# # #             LIVES -= ball.damage
+# # #             ball.kill()
+balls = pg.sprite.Group()
+
+def makeFireball():
+    return Fireball(balls)
+    
+
+def caughtFireball(dog_rect):
     global LIVES
     for ball in balls:
         if dog_rect.collidepoint(ball.rect.center):
             LIVES -= ball.damage
             ball.kill()
 
+
+
+       
+
 pg.time.set_timer(pg.USEREVENT, 2000) #timer 
-makeFireball(balls)
+makeFireball(sc)
 pg.display.update()
 
 while True:
@@ -75,7 +89,7 @@ while True:
         if event.type == pg.QUIT:
             exit()
         elif event.type == pg.USEREVENT:
-           makeFireball(balls)
+           makeFireball(sc)
 
     # moves around
 
@@ -109,6 +123,7 @@ while True:
     
 
     caughtFireball()
+    
     level.run()
     sc.blit(lifecount, (0,0))
     counter = pixelFont.render(str(LIVES), 2, BLACK)
