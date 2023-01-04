@@ -7,14 +7,14 @@ class Dog(pg.sprite.Sprite):
     def __init__(self, position, surface, group) : ### group for camera, also in init
         super().__init__(group)
 
-        self.image = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\sit\dog_sit.png").convert_alpha()
+        self.image = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\Player\dog_sit.png").convert_alpha()
         self.image = pg.transform.scale(self.image, (80, 120))
 
-        self.dog_right = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\right\dog_right.png").convert_alpha()
+        self.dog_right = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\Player\dog_right.png").convert_alpha()
         self.dog_right = pg.transform.scale(self.dog_right, (80, 100))
         self.dog_left = pg.transform.flip(self.dog_right, True, False)
 
-        self.dog_top = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\up\dog_top.png").convert_alpha()
+        self.dog_top = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\Player\dog_up.png").convert_alpha()
         self.dog_top = pg.transform.scale(self.dog_top, (80, 100))
         self.dog_down = pg.transform.flip(self.dog_top, True, True)
 

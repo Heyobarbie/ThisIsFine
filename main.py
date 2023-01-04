@@ -1,7 +1,7 @@
 import pygame as pg
 from random import randint
 from settings import *
-from fireballclass import Fireball
+from Fireball import *
 from Level import *
 from game_data import level_0
 from Dog import *
@@ -17,55 +17,26 @@ pixelFont =pg.font.Font(r'C:\Users\patri\study\Informatik\MyGame\GameRepo\Resour
 clock = pg.time.Clock()  # delays the operations
 level = Level(level_0, sc)
 
-
 # load a pic (if i want to make one colour transparent => .set_colorkey((*the color*)))
 # making sprites for the hero
-dog_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\up\dog_top.png").convert_alpha()
-
-dogg_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\right\dog_right.png").convert_alpha()
+dog_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\Player\dog_up.png").convert_alpha()
+dogg_surf = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\Player\dog_right.png").convert_alpha()
 
 dog_up = pg.transform.scale(dog_surf, (80, 100))
 dog_down = pg.transform.flip(dog_up, True, True)
 
 dog_right = pg.transform.scale(dogg_surf, (80, 100))
 dog_left = pg.transform.flip(dog_right, True, False)
+
 dog_rect = dog_up.get_rect(center=(W//2, H//2))
 
-dog_sit = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\sit\dog_sit.png").convert_alpha()
-dog_sit = pg.transform.scale(dog_sit, (80, 120)) 
+dog_sit = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\Player\dog_sit.png").convert_alpha()
+dog_sit = pg.transform.scale(dog_sit, (80, 120))
 dog = dog_sit
+
 sc.blit(dog_surf, dog_rect)
 
-# MAKING FIREBALLS
-
-# # # balls_info =({'path': 'fireball.png', 'damage': 1},
-# # #             {'path': 'fireball2.png', 'damage': 2})
-# # # balls_surf=[pg.image.load("Resources/Sprites/"+info['path']).convert_alpha() for info in balls_info]
-
-# balls_surf = []
-# for image in balls_images:
-#     path = "images/" + image
-#     tmp_ball_surf = pg.image.load(path).convert_alpha
-
-#     balls_surf.append(tmp_ball_surf)
-
-# # # balls =pg.sprite.Group()
-
-# # # def makeFireball (group):
-# # #     index = randint (0, len(balls_surf)-1)
-# # #     speedball = randint (2, 6)
-# # #     x = randint (20, W-20)
-# # #     return Fireball(x, speedball, balls_surf[index], balls_info[index]['damage'], group)
-
-# # # def caughtFireball():
-# # #     global LIVES
-# # #     for ball in balls:
-# # #         if dog_rect.collidepoint(ball.rect.center):
-# # #             LIVES -= ball.damage
-# # #             ball.kill()
 ballsGroup = pg.sprite.Group()
-   
-    
 
 def caughtFireball(dog_rect):
     global LIVES
@@ -73,10 +44,6 @@ def caughtFireball(dog_rect):
         if dog_rect.collidepoint(ball.rect.center):
             LIVES -= ball.damage
             ball.kill()
-
-
-
-       
 
 pg.time.set_timer(pg.USEREVENT, 2000) #timer 
 Fireball(ballsGroup,sc)
@@ -90,16 +57,13 @@ while True:
            Fireball(ballsGroup, sc)
 
     # moves around
-
     keys = pg.key.get_pressed()
 
     if keys[pg.K_RIGHT]:
         dog = dog_right
         dog_rect.x += SPEED
-        
         if (dog_rect.x > W - dog_rect.height):
             dog_rect.x = W - dog_rect.height
-        
 
     if keys[pg.K_LEFT]:
         dog = dog_left
@@ -118,7 +82,6 @@ while True:
         dog_rect.y += SPEED
         if (dog_rect.y > H - dog_rect.height):
             dog_rect.y = H - dog_rect.height
-    
 
     caughtFireball(dog_rect)
     

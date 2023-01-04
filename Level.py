@@ -3,7 +3,7 @@ from support import *
 from settings_for_tutorials import *
 from Tile import *
 from Dog import *
-from sprites import Generic
+from Generic import *
 
 class Level:
     def __init__(self, level_data, surface):
