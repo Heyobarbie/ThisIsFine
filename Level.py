@@ -8,14 +8,14 @@ from Generic import *
 class Level:
     def __init__(self, level_data, surface):
         self.display_surface = surface
-        self.world_shift = -2
+        self.world_shift = 0
 
         terrain_layout = import_csv_layout(level_data['terrain'])
         self.terrain_sprites = self.create_tile_group(terrain_layout, 'terrain')
 
 
-        self.goal = pg.sprite.GroupSingle()
-        self.player = pg.sprite.GroupSingle()
+        # self.goal = pg.sprite.GroupSingle()
+        # self.player = pg.sprite.GroupSingle()
         dog_layout = import_csv_layout(level_data['dog'])
         self.dog_setup(dog_layout)
 
@@ -28,7 +28,8 @@ class Level:
                     y = row_index * tile_size
 
                     if value == '0':
-                        dog = Dog((640,320), self.display_surface, self.sprite_group)
+                        self.dog = Dog((x, y), self.display_surface, self.sprite_group)
+
                         
 
     def create_tile_group(self, layout, type):
@@ -51,19 +52,28 @@ class Level:
                     self.sprite_group.add(sprite)
 
 
-        return self.sprite_group
+        #return self.sprite_group
 
     def run(self):
-        self.sprite_group.custom_draw()
+        self.display_surface.fill(BLACK)
         self.sprite_group.update()
+        self.sprite_group.custom_draw(self.dog)
+        
 
 class CameraGroup(pg.sprite.Group):
     def __init__(self):
         super().__init__()
         self.display_surface = pg.display.get_surface()
-    def custom_draw(self):
+        self.offset = pg.math.Vector2()
+
+    def custom_draw(self, dog):
+        self.offset.x = dog.rect.centerx - W/2
+        self.offset.y = dog.rect.centery - H/2
+
         for layer in LAYERS.values():
             for sprite in self.sprites():
                 if sprite.z == layer:
-                   self.display_surface.blit(sprite.image, sprite.rect)
-            
+                    offset_rect = sprite.rect.copy()
+                    offset_rect.center -= self.offset
+
+                    self.display_surface.blit(sprite.image, offset_rect)
