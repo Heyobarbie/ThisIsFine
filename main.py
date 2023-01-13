@@ -5,6 +5,7 @@ from Fireball import *
 from Level import *
 from game_data import level_0
 from Dog import *
+from begging_end import *
 
 pg.init()
 sc = pg.display.set_mode((W, H))
@@ -45,19 +46,26 @@ def caughtFireball(dog_rect):
             LIVES -= ball.damage
             ball.kill()
 
+
+
 pg.time.set_timer(pg.USEREVENT, 2000) #timer 
 Fireball(ballsGroup,sc)
 pg.display.update()
 
 while True:
+    keys = pg.key.get_pressed()
+    #if keys[pg.K_SPACE]:
+    #begining(sc)
+
     for event in pg.event.get():
         if event.type == pg.QUIT:
             exit()
         elif event.type == pg.USEREVENT:
            Fireball(ballsGroup, sc)
-
+    if (LIVES == 0) or (LIVES < 0) :
+        game_over(sc)
     # moves around
-    keys = pg.key.get_pressed()
+
 
     if keys[pg.K_RIGHT]:
         dog = dog_right
@@ -85,9 +93,9 @@ while True:
 
     caughtFireball(dog_rect)
     
-    level.run()
+    level.run()  #making level, adding sprites et.
     sc.blit(lifecount, (0,0))
-    counter = pixelFont.render(str(LIVES), 2, BLACK)
+    counter = pixelFont.render(str(LIVES), 2, BLACK) 
     sc.blit(counter, (25,10))
     
     sc.blit(dog, (dog_rect))   
