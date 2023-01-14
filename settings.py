@@ -4,7 +4,7 @@ H = 720
 
 FPS = 60
 
-SPEED = 4
+SPEED = 3
 LIVES = 5
 
 vertical_tile_number = 60
@@ -30,5 +30,5 @@ LAYERS ={
     'wall': 2,
     'objects':3,
     'dog': 4,
-    'fireballs' : 5
+    'fire' : 5
 }

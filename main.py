@@ -24,7 +24,7 @@ ballsGroup = pg.sprite.Group()
 def caughtFireball(dog_rect):
     global LIVES
     for ball in ballsGroup:
-        if dog_rect.collidepoint(ball.rect.center):
+        if dog_rect.collidepoint(ball.rect.center): # TODO CHECK
             LIVES -= ball.damage
             ball.kill()
 
@@ -32,16 +32,29 @@ def caughtFireball(dog_rect):
 
 pg.time.set_timer(pg.USEREVENT, 2000) #timer 
 Fireball(ballsGroup,sc)
+#won(sc)
+#begining(sc)
 pg.display.update()
-
+GODMODE = False
 while True:
     keys = pg.key.get_pressed()
+    
+    
     #if keys[pg.K_SPACE]:
-    #begining(sc)
-
     for event in pg.event.get():
         if event.type == pg.QUIT:
             exit()
+        elif keys[pg.K_3]:
+            if GODMODE:
+                GODMODE = False
+            else:
+                GODMODE = True
+        elif keys[pg.K_PLUS]:
+            if GODMODE:
+                CameraGroup.ZoomFactor+=0.05
+        elif keys[pg.K_MINUS]:
+            if GODMODE:
+                CameraGroup.ZoomFactor-=0.05
         elif event.type == pg.USEREVENT:
            Fireball(ballsGroup, sc)
     if (LIVES == 0) or (LIVES < 0) :

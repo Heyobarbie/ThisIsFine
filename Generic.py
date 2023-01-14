@@ -16,8 +16,15 @@ class Wall(Tiles):
         self.hitbox = self.rect.copy().inflate(-self.rect.width*0.3, -self.rect.height*0.8)
 
 class Objects(Tiles):
-    def __init__(self, position, surface, groups, ):
+    def __init__(self, position, surface, groups):
         super().__init__(position, groups)
         self.image = surface
         self.z = LAYERS['objects']
+
+class Fire(Tiles):
+
+    def __init__(self, position, surface, groups):
+        super().__init__(position, groups)
+        self.image = surface
+        self.z = LAYERS['fire']
 
