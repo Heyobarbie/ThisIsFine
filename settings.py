@@ -9,7 +9,7 @@ LIVES = 5
 
 vertical_tile_number = 60
 horizonal_tile_number = 11
-tile_size = 64
+tile_size = 16
 
 screen_height= vertical_tile_number * tile_size
 screen_width = horizonal_tile_number * tile_size
@@ -26,8 +26,9 @@ GOLD = (255, 215, 0)
 
 LAYERS ={
     'background': 0,
-    'room': 1,
-    'dog': 2,
-    'countdown' : 3,
-    'fireballs' : 4
+    'floor': 1,
+    'wall': 2,
+    'objects':3,
+    'dog': 4,
+    'fireballs' : 5
 }

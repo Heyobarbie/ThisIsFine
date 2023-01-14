@@ -4,13 +4,21 @@ from settings import *
 
 class Dog(pg.sprite.Sprite):
 
-    def __init__(self, position, surface, group) : ### group for camera, also in init
+    def __init__(self, position, group, collision_group) : ### group for camera, also in init
         super().__init__(group)
-
+        #for the dog animation
         self.import_assests()
         self.status = 'up'
         self.image = self.animations[self.status]
-        self.image = pg.transform.scale(self.image, (80, 120))
+
+        self.image = pg.transform.scale(self.image, (14, 20))
+        self.rect = self.image.get_rect(center = position)
+        self.direction = pg.math.Vector2(0,0)
+        self.position = pg.math.Vector2(self.rect.center)
+        
+        #for the collision
+        self.collision_sprites = collision_group
+        self.hitbox = (self.rect.copy().inflate((+32, +32)))
 
         # self.image = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\Player\dog_sit.png").convert_alpha()
         # self.image = pg.transform.scale(self.image, (80, 120))
@@ -22,14 +30,8 @@ class Dog(pg.sprite.Sprite):
         # self.dog_top = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\Player\dog_up.png").convert_alpha()
         # self.dog_top = pg.transform.scale(self.dog_top, (80, 100))
         # self.dog_down = pg.transform.flip(self.dog_top, True, True)
-
-    
-
-        self.rect = self.image.get_rect(center = position)
-        self.direction = pg.math.Vector2(0,0)
-        self.position = pg.math.Vector2(self.rect.center)
         self.z = LAYERS ['dog']
-        self.hitbox = self.rect.copy().inflate((-100, -70))
+        
        
     def import_assests(self):
         self.animations = { 'up': (), 'down': (), 'right': (), 'left': (), 'sit': ()}
@@ -64,6 +66,33 @@ class Dog(pg.sprite.Sprite):
         else:
             self.direction.x = 0
 
+   
+    def update(self):
+        self.input_dog()
+        self.move()
+        self.image = self.animations[self.status]
+        self.image = pg.transform.scale(self.image, (14, 20))
+
+    def collision(self, direction):
+        for sprite in self.collision_sprites.sprites():
+            if hasattr(sprite, 'hitbox'):
+                if sprite.hitbox.colliderect(self.hitbox):
+                    if direction == 'horizontal':
+                        if self.direction.x > 0: # moving right
+                            self.hitbox.right = sprite.hitbox.left
+                        if self.direction.x < 0: # moving left
+                            self.hitbox.left = sprite.hitbox.right
+                        self.rect.centerx = self.hitbox.centerx
+                        self.position.x = self.hitbox.centerx
+
+                    if direction == 'vertical':
+                        if self.direction.y > 0: # moving down
+                            self.hitbox.bottom = sprite.hitbox.top
+                        if self.direction.y < 0: # moving up
+                            self.hitbox.top = sprite.hitbox.bottom
+                        self.rect.centery = self.hitbox.centery
+                        self.position.y = self.hitbox.centery
+
     def move(self):
         #vector normalisation
         if self.direction.magnitude() > 0:
@@ -71,17 +100,13 @@ class Dog(pg.sprite.Sprite):
 
         self.position.x += self.direction.x * SPEED
         self.hitbox.centerx = round(self.position.x) 
-        self.rect.centerx = self.hitbox.x
+        self.rect.centerx = self.hitbox.centerx
+        self.collision('horizontal')
 
         self.position.y += self.direction.y * SPEED
         self.hitbox.centery = round(self.position.y)
-        self.rect.centery = self.hitbox.y
-        
-    def update(self):
-        self.input_dog()
-        self.move()
-        self.image = self.animations[self.status]
-        self.image = pg.transform.scale(self.image, (80, 120))
-        
+        self.rect.centery = self.hitbox.centery
+        self.collision('vertical')
+            
 
 
