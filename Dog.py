@@ -18,7 +18,7 @@ class Dog(pg.sprite.Sprite):
         
         #for the collision
         self.collision_sprites = collision_group
-        self.hitbox = (self.rect.copy().inflate((+32, +32)))
+        self.hitbox = (self.rect.copy().inflate((-2, -2)))
 
         # self.image = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\Sprites\Player\dog_sit.png").convert_alpha()
         # self.image = pg.transform.scale(self.image, (80, 120))

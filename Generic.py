@@ -7,13 +7,13 @@ class Tiles(pg.sprite.Sprite):
         self.image = surface
         self.rect = self.image.get_rect(topleft = position)
         self.z = z
-        self.hitbox = self.rect.copy().inflate(-2, -3)
+        self.hitbox = self.rect.copy().inflate(-self.rect.width*0.2, -self.rect.height*0.7)
 
 class Wall(Tiles):
     def __init__(self, position, surface, groups, ):
         super().__init__(position,surface, groups)
         self.z = LAYERS['wall']
-        self.hitbox = self.rect.copy().inflate(-2, -3)
+        self.hitbox = self.rect.copy().inflate(-self.rect.width*0.3, -self.rect.height*0.8)
 
 class Objects(Tiles):
     def __init__(self, position, surface, groups, ):
