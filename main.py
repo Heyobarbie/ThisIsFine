@@ -55,7 +55,7 @@ pg.display.update()
 while True:
     keys = pg.key.get_pressed()
     #if keys[pg.K_SPACE]:
-    #begining(sc)
+    begining(sc)
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
