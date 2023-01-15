@@ -1,0 +1,14 @@
+Packages and software used for this project including license informations:
+---------------------------------
+pygame 2.1.2
+GNU Library or Lesser General Public License (LGPL) (LGPL)
+---------------------------------
+Tiled Map Editor
+Version 1.9.2
+Copyright 2008-2022 Thorbjørn Lindeijer
+(see the AUTHORS file for a full list of contributors)
+You may modify and redistribute this program under the terms of the GPL (version 2 or later). A copy of the GPL is contained in the 'COPYING' file distributed with Tiled.
+https://www.mapeditor.org/
+---------------------------------
+A few of python pre installed packages mostly licensed under
+Python Software Foundation License (Python 2.1.1)

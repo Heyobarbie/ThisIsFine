@@ -6,9 +6,11 @@ from Generic import *
 from pytmx.util_pygame import load_pygame
 from begging_end import won
 
+# creates levels out a tmx document data file format and loads tiles and other resources
 class Level:
     LIVES = 5
     isCurrentlyHit = []
+    GAMEOVER = False
     def __init__(self):
         self.sprite_group = CameraGroup()
         self.collision_group = pg.sprite.Group()
@@ -52,9 +54,14 @@ class Level:
 		z = LAYERS['background'])
 
     def check_win(self, surface):
-        for goal in self.goal_group:
+        for self.goal in self.goal_group:
             if self.dog.rect.collidepoint(self.goal.rect.center):
-                won(surface)
+                if (self.GAMEOVER == False):
+                    won(surface)
+                    self.GAMEOVER = True
+                    # TODO: Show maybe results and ask if player wanna play again? For now, simply quit the game
+                    pg.time.delay(3000)
+                    exit()
 
     def check_fire_collision(self):
         # using a list of collision states and checking with 'no collision' list , if one is true => looses only one life instead of instant death, otherwise counting down at each new collision check

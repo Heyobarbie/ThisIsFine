@@ -7,7 +7,7 @@ def begining(surface):
     surface.fill(BLACK)
     animations = [1,2,3,4,5,6,7]
     for animation in animations:
-      full_path = "../Ideas, PotentialResources/AnimationBeggining/" + str(animation) + ".jpg"
+      full_path = "Resources/Animations/Beginning/" + str(animation) + ".jpg"
       animation = animation + 1
       image =  pg.image.load(full_path).convert_alpha()
       image = pg.transform.scale(image, (W,H))
@@ -22,9 +22,8 @@ def won(surface): # shows animations for successful ending the game
   x = 700
   i = 0
   x2 = 1000
-  for animation in animations: # to fix
-      full_path = "../Ideas, PotentialResources/won/" + str(animation) + ".jpg"
-      # animation = animation + 1
+  for animation in animations:
+      full_path = "Resources/Animations/Ending/" + str(animation) + ".jpg"
       image =  pg.image.load(full_path).convert_alpha()
       image = pg.transform.scale(image, (W,H))
       dog = pg.Surface((14,17))

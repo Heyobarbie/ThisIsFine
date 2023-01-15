@@ -22,8 +22,8 @@ ballsGroup = pg.sprite.Group()
 
 pg.time.set_timer(pg.USEREVENT, 2000) #timer 
 Fireball(ballsGroup)
-won(sc)
-#begining(sc) # animation in the beginning
+
+begining(sc) # animation in the beginning
 pg.display.update()
 GODMODE = False 
 
