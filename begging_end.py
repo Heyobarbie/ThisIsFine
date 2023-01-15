@@ -8,7 +8,7 @@ def begining(surface):
     animations = [1,2,3,4,5,6,7]
     for animation in animations:
       full_path = "../Ideas, PotentialResources/AnimationBeggining/" + str(animation) + ".jpg"
-      animation = animation +1
+      animation = animation + 1
       image =  pg.image.load(full_path).convert_alpha()
       image = pg.transform.scale(image, (W,H))
       surface.blit(image, (0,0))
@@ -21,7 +21,7 @@ def won(surface):
   animations = [1,2,3,4,5]
   for animation in animations:
       full_path = "../Ideas, PotentialResources/won/" + str(animation) + ".jpg"
-      animation = animation +1
+      animation = animation + 1
       image =  pg.image.load(full_path).convert_alpha()
       image = pg.transform.scale(image, (W,H))
       dog = pg.Surface((14,17))

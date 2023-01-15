@@ -7,38 +7,21 @@ from pytmx.util_pygame import load_pygame
 from begging_end import won
 
 class Level:
+    LIVES = 5
+    isCurrentlyHit = []
     def __init__(self):
         self.sprite_group = CameraGroup()
         self.collision_group = pg.sprite.Group()
+        self.damage_group = pg.sprite.Group()
 
         self.tmx_data = load_pygame("Resources/Maps/TryOut.tmx")
         self.create_tile_group()
 
-        #terrain_layout = import_csv_layout(level_data['terrain'])
-        #self.terrain_sprites = self.create_tile_group(terrain_layout, 'terrain')
-
-
-        # self.goal = pg.sprite.GroupSingle()
-        # self.player = pg.sprite.GroupSingle()
-        #dog_layout = import_csv_layout(level_data['dog'])
-        #self.dog_setup(dog_layout)
-
-
-    # def dog_setup(self, layout):
-
-    #     for row_index, row in enumerate(layout):
-    #         for colunm_index, value in enumerate(row):
-    #                 x = colunm_index * tile_size
-    #                 y = row_index * tile_size
-
-    #                 if value == '0':
-    #                     self.dog = Dog((x, y), self.display_surface, self.sprite_group)
-
-                        
+        for _ in self.damage_group:
+            self.isCurrentlyHit.append(False)
 
     def create_tile_group(self):
         self.sprite_group = CameraGroup()
-        #Tiles(position = (0,0), surface = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\background.jpg").convert_alpha(), groups = self.sprite_group, z = LAYERS['background'])
 
         for x_column, y_row, surface in self.tmx_data.get_layer_by_name('Floor').tiles():
                 Tiles((x_column*tile_size, y_row*tile_size), surface ,self.sprite_group)
@@ -55,7 +38,7 @@ class Level:
 
         for obj in self.tmx_data.get_layer_by_name('Fire'):
             if obj.name == 'Fire':
-                self.fire = Fire((obj.x, obj.y), surface, [self.sprite_group, self.collision_group])
+                self.fire = Fire((obj.x, obj.y), surface, [self.sprite_group, self.damage_group])
 
         Tiles(
 		position = (0,0),
@@ -66,30 +49,24 @@ class Level:
     def check_win(self):
         if pg.sprite.spritecollide(self.dog, self.goal, False):
             won()
-    #def check_fire_collision(self):
 
-
-
-    # def fire_making(self):
-    #     clock = pg.time.Clock()
-    #     time_count = 0
-    #     time_count = clock.tick()
-    #     if type(time_count/1000)== int:
-    #         x = randint(0, screen_width)
-    #         y = randint(0,screen_height)
-    #         surface = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\Ideas, PotentialResources\fire\1.png")
-    #         Fire((x,y), surface, [self.sprite_group, self.collision_group] ) 
+    def check_fire_collision(self):
+        # using a list of collision states and checking with 'no collision' list , if one is true => looses only one life instead of instant death, otherwise counting down at each new collision check
+        i = 0
+        for ball in self.damage_group:
+            if self.dog.rect.collidepoint(ball.rect.center):
+                if (self.isCurrentlyHit[i] == False):
+                    self.LIVES -= 1
+                self.isCurrentlyHit[i] = True
+            else:
+                self.isCurrentlyHit[i] = False
+            i += 1
 
 
     def run(self):
         self.sprite_group.update()
-        #self.fire_making()
+        self.check_fire_collision()
         self.sprite_group.custom_draw(self.dog)
-
-        # self.display_surface = pg.transform.scale_by(self.display_surface,1)
-
-
-        #make an overlay wit lives and such timer
 
 class CameraGroup(pg.sprite.Group):
     ZoomFactor = 4
