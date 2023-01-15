@@ -8,11 +8,10 @@ from begging_end import won
 
 class Level:
     def __init__(self):
-        self.display_surface = pg.display.get_surface()
         self.sprite_group = CameraGroup()
         self.collision_group = pg.sprite.Group()
 
-        self.tmx_data = load_pygame(r"C:\Users\patri\study\Informatik\MyGame\Ideas, PotentialResources\tiles\TryOut.tmx")
+        self.tmx_data = load_pygame("Resources/Maps/TryOut.tmx")
         self.create_tile_group()
 
         #terrain_layout = import_csv_layout(level_data['terrain'])
@@ -38,7 +37,6 @@ class Level:
                         
 
     def create_tile_group(self):
-
         self.sprite_group = CameraGroup()
         #Tiles(position = (0,0), surface = pg.image.load(r"C:\Users\patri\study\Informatik\MyGame\GameRepo\Resources\background.jpg").convert_alpha(), groups = self.sprite_group, z = LAYERS['background'])
 
@@ -55,6 +53,10 @@ class Level:
             if obj.name == 'Dog':
                 self.dog = Dog((obj.x, obj.y), self.sprite_group, self.collision_group)
 
+        for obj in self.tmx_data.get_layer_by_name('Fire'):
+            if obj.name == 'Fire':
+                self.fire = Fire((obj.x, obj.y), surface, [self.sprite_group, self.collision_group])
+
         Tiles(
 		position = (0,0),
 		surface = pg.transform.scale(pg.image.load('Resources/background.jpg').convert_alpha(), (80, 120)),
@@ -64,6 +66,7 @@ class Level:
     def check_win(self):
         if pg.sprite.spritecollide(self.dog, self.goal, False):
             won()
+    #def check_fire_collision(self):
 
 
 
@@ -79,14 +82,9 @@ class Level:
 
 
     def run(self):
-        self.display_surface.fill(BLACK)
         self.sprite_group.update()
         #self.fire_making()
         self.sprite_group.custom_draw(self.dog)
-
-
-
-
 
         # self.display_surface = pg.transform.scale_by(self.display_surface,1)
 
@@ -94,7 +92,7 @@ class Level:
         #make an overlay wit lives and such timer
 
 class CameraGroup(pg.sprite.Group):
-    ZoomFactor = 1
+    ZoomFactor = 4
     def __init__(self):
         super().__init__()
         self.display_surface = pg.display.get_surface()
@@ -109,11 +107,17 @@ class CameraGroup(pg.sprite.Group):
         self.internal_surface_vector = pg.math.Vector2(self.internal_surface_size)
 
     def custom_draw(self, dog):
+    # def custom_draw(self, dog, ballsGroup, ballsOffsetX):
+
         self.offset.x = dog.rect.centerx - W/2
         self.offset.y = dog.rect.centery - H/2
 
-
-
+        # global ballsOffsetX        
+        # ballsOffsetX = 87 - dog.rect.centerx
+        # ballsOffsetX = (ballsOffsetX + self.offset.x) - dog.rect.centerx
+        # case inital: ballsOffsetX = 0 becasue do is in center and map is centered
+        # case I move 20 to the left: offsetx needs to be 20
+        # print("BOffSetX: " + str(ballsOffsetX) + "; dog.rect.centerx: " + str(dog.rect.centerx))
         self.internal_surface.fill(BLACK)
 
         for layer in LAYERS.values():
@@ -124,6 +128,9 @@ class CameraGroup(pg.sprite.Group):
 
                     self.internal_surface.blit(sprite.image, offset_rect) # self.display_surface.blit(sprite.image, offset_rect)
         
+        # mb change x coord for each fireball in the group
+        # ballsGroup.draw(self.internal_surface) # ballsGroup.draw(self.display_surface)
+
         scaled_surface = pg.transform.scale(self.internal_surface, self.internal_surface_vector*self.ZoomFactor)
         scaled_rect = scaled_surface.get_rect(center = (self.half_w, self.half_h))
 

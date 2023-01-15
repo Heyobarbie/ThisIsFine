@@ -31,11 +31,12 @@ def caughtFireball(dog_rect):
 
 
 pg.time.set_timer(pg.USEREVENT, 2000) #timer 
-Fireball(ballsGroup,sc)
-#won(sc)
+Fireball(ballsGroup)
+
 #begining(sc)
 pg.display.update()
 GODMODE = False
+
 while True:
     keys = pg.key.get_pressed()
     
@@ -56,7 +57,7 @@ while True:
             if GODMODE:
                 CameraGroup.ZoomFactor-=0.05
         elif event.type == pg.USEREVENT:
-           Fireball(ballsGroup, sc)
+           Fireball(ballsGroup)
     if (LIVES == 0) or (LIVES < 0) :
         game_over(sc)
     # moves around
