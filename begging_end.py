@@ -56,6 +56,19 @@ def won(surface): # shows animations for successful ending the game
       surface.blit(truck, (x2, 600))
       pg.display.update()
       pg.time.delay (1000)
+
+  congrats = pg.image.load('Resources/you_won.jpg')
+  congrats = pg.transform.scale(congrats, (W,H))
+  surface.blit(congrats, (0,0))
+  pg.display.update()
+  pg.time.delay (3000)
+
+  getOut = pg.image.load('Resources/get_out.jpg')
+  getOut = pg.transform.scale(getOut, (W,H))
+  surface.blit(getOut, (0,0))
+  pg.display.update()
+  pg.time.delay (1000)
+  
     
 
 
