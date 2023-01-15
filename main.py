@@ -11,21 +11,21 @@ pg.init()
 sc = pg.display.set_mode((W, H))
 pg.display.set_caption("THIS IS FINE")
 
-lifecount = pg.image.load("Resources/textbox.png").convert_alpha()
-lifecount = pg.transform.scale(lifecount, (200,100))
-pixelFont =pg.font.Font('Resources/Fonts/Grand9KPixel.ttf', 30)
+lifecount = pg.image.load("Resources/textbox.png").convert_alpha() # load the beckground for life count
+lifecount = pg.transform.scale(lifecount, (200,100)) # make it smaller
+pixelFont =pg.font.Font('Resources/Fonts/Grand9KPixel.ttf', 30) # load the font for count
 
 clock = pg.time.Clock()  # delays the operations
-level = Level()
+level = Level() # prepare the level
 
 ballsGroup = pg.sprite.Group()
 
 pg.time.set_timer(pg.USEREVENT, 2000) #timer 
 Fireball(ballsGroup)
-
-begining(sc)
+won(sc)
+#begining(sc) # animation in the beginning
 pg.display.update()
-GODMODE = False
+GODMODE = False 
 
 while True:
     keys = pg.key.get_pressed()
@@ -45,11 +45,11 @@ while True:
                 CameraGroup.ZoomFactor-=0.05
         elif event.type == pg.USEREVENT:
            Fireball(ballsGroup)
-    if (level.LIVES == 0) or (level.LIVES < 0) :
+    if (level.LIVES == 0) or (level.LIVES < 0) : # dying mechanism
         game_over(sc)
     # moves around
     
-    level.run()  # making level, adding sprites et.
+    level.run(sc)  # making level, adding sprites,charcter movin et.
     sc.blit(lifecount, (0,0))
     counter = pixelFont.render(f"{str(level.LIVES)} Lives", 2, BLACK) 
     sc.blit(counter, (25,10))

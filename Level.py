@@ -22,6 +22,7 @@ class Level:
 
     def create_tile_group(self):
         self.sprite_group = CameraGroup()
+        self.goal_group = pg.sprite.GroupSingle()
 
         for x_column, y_row, surface in self.tmx_data.get_layer_by_name('Floor').tiles():
                 Tiles((x_column*tile_size, y_row*tile_size), surface ,self.sprite_group)
@@ -40,15 +41,20 @@ class Level:
             if obj.name == 'Fire':
                 self.fire = Fire((obj.x, obj.y), surface, [self.sprite_group, self.damage_group])
 
+        for obj in self.tmx_data.get_layer_by_name('Goal'):
+            if obj.name == 'Goal':
+                self.goal = Goal((obj.x, obj.y), surface, [self.sprite_group, self.goal_group])
+
         Tiles(
 		position = (0,0),
 		surface = pg.transform.scale(pg.image.load('Resources/background.jpg').convert_alpha(), (80, 120)),
 		groups = self.sprite_group,
 		z = LAYERS['background'])
 
-    def check_win(self):
-        if pg.sprite.spritecollide(self.dog, self.goal, False):
-            won()
+    def check_win(self, surface):
+        for goal in self.goal_group:
+            if self.dog.rect.collidepoint(self.goal.rect.center):
+                won(surface)
 
     def check_fire_collision(self):
         # using a list of collision states and checking with 'no collision' list , if one is true => looses only one life instead of instant death, otherwise counting down at each new collision check
@@ -63,10 +69,11 @@ class Level:
             i += 1
 
 
-    def run(self):
+    def run(self, surface):
         self.sprite_group.update()
         self.check_fire_collision()
         self.sprite_group.custom_draw(self.dog)
+        self.check_win(surface)
 
 class CameraGroup(pg.sprite.Group):
     ZoomFactor = 4
@@ -78,7 +85,7 @@ class CameraGroup(pg.sprite.Group):
         self.half_w = self.display_surface.get_size()[0] / 2
         self.half_h = self.display_surface.get_size()[1] / 2
         
-        self.internal_surface_size = (1280, 720)#(1280*2, 720*2)
+        self.internal_surface_size = (W, H)#(1280*2, 720*2)
         self.internal_surface = pg.Surface(self.internal_surface_size, pg.SRCALPHA)
         self.internal_rect = self.internal_surface.get_rect(center = (self.half_w, self.half_h))
         self.internal_surface_vector = pg.math.Vector2(self.internal_surface_size)

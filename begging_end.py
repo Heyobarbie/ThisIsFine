@@ -15,24 +15,46 @@ def begining(surface):
       pg.display.update()
       pg.time.delay (1000)
     
-def won(surface):
+def won(surface): # shows animations for successful ending the game
   surface.fill(BLACK)
 
   animations = [1,2,3,4,5]
-  for animation in animations:
+  x = 700
+  i = 0
+  x2 = 1000
+  for animation in animations: # to fix
       full_path = "../Ideas, PotentialResources/won/" + str(animation) + ".jpg"
-      animation = animation + 1
+      # animation = animation + 1
       image =  pg.image.load(full_path).convert_alpha()
       image = pg.transform.scale(image, (W,H))
       dog = pg.Surface((14,17))
       dog.fill(GOLD)
-      
+
+      truck = pg.image.load('Resources/Sprites/truck.png').convert_alpha()
+      truck = pg.transform.scale(truck, (200,80))
+
       surface.blit(image, (0,0))
-      x = 750
-      if x != 900:
-        x += 10
-        surface.blit(dog,(x,370))
-        pg.display.update()
+      surface.blit(dog, (x,370))
+      if animation == 1:
+        for i in range(20):
+          x = x + 7
+          surface.blit(image, (0,0))
+          surface.blit(dog,(x,370))
+          pg.display.update()
+          pg.time.delay(200)        
+        
+        surface.blit(truck, ((x2, 600)))
+
+        for i in range(40):
+          x2 = x2 - 7
+          surface.blit(image, (0,0))
+          surface.blit(dog,(x,370))
+          surface.blit(truck, (x2, 600))
+          pg.display.update()
+          pg.time.delay(100)
+
+
+      surface.blit(truck, (x2, 600))
       pg.display.update()
       pg.time.delay (1000)
     

@@ -67,7 +67,7 @@
 </data>
  </layer>
  <objectgroup id="8" name="Goal">
-  <object id="5" x="87.5" y="21.5">
+  <object id="5" name="Goal" x="87.5" y="21.5">
    <point/>
   </object>
  </objectgroup>
